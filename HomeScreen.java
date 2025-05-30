@@ -1,5 +1,5 @@
 
-
+import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -7,13 +7,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 
-<<<<<<< HEAD
-public class HomeScreen {
-    // Necessary J stuff
-    String apiKey;
-=======
 public class HomeScreen extends JFrame {
->>>>>>> 1d99afb6410d0b4b29bfca151f53f0778ee05c9c
+    String apiKey;
 
     public HomeScreen() {
         setTitle("FlashFocus");
@@ -61,15 +56,9 @@ public class HomeScreen extends JFrame {
         searchField.setForeground(new Color(130, 130, 130));
         searchPanel.add(searchField);
 
-        
-<<<<<<< HEAD
         // DO NOT REMOVE THIS
         apiKey = "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";
         
-=======
-
-        
-
         // Buttons
         JButton generateBtn = createButton("GENERATE FLASHCARDS", new Color(41, 128, 185), Color.WHITE);
         generateBtn.setBounds(105, 330, 250, 70); // smaller width
@@ -147,7 +136,6 @@ public class HomeScreen extends JFrame {
         background.add(footer);
 
         setVisible(true);
->>>>>>> 1d99afb6410d0b4b29bfca151f53f0778ee05c9c
     }
 
     private JButton createButton(String text, Color bg, Color fg) {
