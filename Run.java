@@ -4,7 +4,7 @@ public class Run {
         // This file is used for intially running the app, which then redirects to the home screen
 
         // Leave this commented for now
-        // HomeScreen home = new HomeScreen();
+            HomeScreen home = new HomeScreen();
     }
     
 }
