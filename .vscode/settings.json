@@ -3,7 +3,6 @@
         "lib/**/*.jar",
         "c:\\Users\\sarim\\Downloads\\json-20231013.jar",
         "c:\\Users\\sarim\\Downloads\\json-simple-1.1.1.jar",
-        "c:\\Users\\sarim\\Downloads\\Java Json\\json-20231013.jar",
-        "c:\\Users\\sarim\\Downloads\\Java Json\\json-simple-1.1.1.jar"
+        "json-20230227.jar"
     ]
 }

@@ -1,8 +1,9 @@
-
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -32,12 +33,12 @@ public class HomeScreen extends JFrame {
         JLabel subtitle = new JLabel("<html><div style='text-align:center;'>AI-Powered flashcards.<br>Smarter studying starts here.</div></html>", SwingConstants.CENTER);
         subtitle.setFont(new Font("Poppins", Font.PLAIN, 26));
         subtitle.setForeground(new Color(70, 70, 70)); // medium dark gray
-        subtitle.setBounds(105, 120, 520, 100); // reduced width a bit
+        subtitle.setBounds(50, 120, 520, 100); // reduced width a bit
         background.add(subtitle);
 
         // Search panel
         JPanel searchPanel = new JPanel(null);
-        searchPanel.setBounds(105, 250, 520, 60); // reduced width
+        searchPanel.setBounds(65, 250, 470, 60); // reduced width
         searchPanel.setBackground(new Color(255, 255, 255, 220)); // translucent white
         searchPanel.setBorder(new RoundedBorder(new Color(180, 180, 180), 25));
         addShadow(searchPanel);
@@ -48,7 +49,7 @@ public class HomeScreen extends JFrame {
         searchIcon.setBounds(15, 15, 30, 30);
         searchPanel.add(searchIcon);
 
-        JTextField searchField = new JTextField("Enter a specific topic to study, or a saved topic deck");
+        JTextField searchField = new JTextField("John Wick");
         searchField.setBounds(50, 15, 450, 30);
         searchField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         searchField.setBorder(null);
@@ -56,21 +57,62 @@ public class HomeScreen extends JFrame {
         searchField.setForeground(new Color(130, 130, 130));
         searchPanel.add(searchField);
 
+        String topic = searchField.getText();
+
         // DO NOT REMOVE THIS
         apiKey = "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";
         
         // Buttons
         JButton generateBtn = createButton("GENERATE FLASHCARDS", new Color(41, 128, 185), Color.WHITE);
-        generateBtn.setBounds(105, 330, 250, 70); // smaller width
+        generateBtn.setBounds(65, 330, 225, 70); // smaller width
         background.add(generateBtn);
 
+        generateBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (topic != ""
+                        && topic != "Enter a specific topic to study, or a saved topic deck") {
+                    JLabel generatingDeck = new JLabel("Flashcard Deck is generating, Please wait patiently");
+                    generatingDeck.setBounds(65, 450, 200, 30);
+                    HashMap<String, AnswerList<String>> flashCardDeck = ChatbotFlashcardGenerator.flashCardDeck(topic,
+                            apiKey);
+                    generatingDeck.setText("Deck has generated successfully");
+                    new FlashCardDeckMenu(flashCardDeck);
+                    
+                }
+            }
+            
+        });
+
         JButton loadBtn = createButton("LOAD EXISTING DECK", new Color(220, 220, 220), new Color(80, 80, 80));
-        loadBtn.setBounds(375, 330, 250, 70); // moved closer to generateBtn
+        loadBtn.setBounds(310, 330, 225, 70); // moved closer to generateBtn
         background.add(loadBtn);
+
+        loadBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (topic != "" && topic != "Enter a specific topic to study, or a saved topic deck") {
+                    HashMap<String, AnswerList<String>> flashCardDeck = ChatbotFlashcardGenerator.loadDeck(topic);
+                    JLabel loadDeck = new JLabel();
+                    loadDeck.setBounds(65, 450, 200, 30);
+                    background.add(loadDeck);
+                    if (flashCardDeck == null) {
+                        loadDeck.setText("Deck not been found, Please enter a valid saved flashcard deck");
+                    } else {
+                        loadDeck.setText("Flashcard deck loaded successfully");
+                        new FlashCardDeckMenu(flashCardDeck);
+                    }
+                    
+                }
+            }
+            
+        });
 
         // Info Panel smaller and moved
         JPanel infoPanel = new JPanel(null);
-        infoPanel.setBounds(640, 100, 350, 450); // smaller size and moved left
+        infoPanel.setBounds(600, 100, 350, 450); // smaller size and moved left
         infoPanel.setBackground(new Color(255, 255, 255, 230));
         infoPanel.setBorder(new RoundedBorder(new Color(200, 200, 200), 25));
         addShadow(infoPanel);
@@ -85,7 +127,7 @@ public class HomeScreen extends JFrame {
         String[] features = {
             "Generate flashcards from any topic",
             "Study or quiz yourself at your own pace",
-            "Save decks for review",
+            "Automatically saves decks for review",
             "Track your progress easily",
             "Supports multiple subjects"
         };

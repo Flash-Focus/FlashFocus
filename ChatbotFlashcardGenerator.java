@@ -199,7 +199,6 @@ public class ChatbotFlashcardGenerator {
              return deck;
 
          } catch (IOException e) {
-             System.out.println("File Not Found");
              return null;
          }
 
