@@ -29,7 +29,7 @@ public class StudyMode extends JFrame {
 
         // Background panel with image
         JPanel backgroundPanel = new JPanel() {
-            Image bg = new ImageIcon("C:\\Users\\aryan\\OneDrive\\Documents\\FlashFocus\\FlashFocus\\Background image.jpg").getImage();
+            Image bg = new ImageIcon("FlashFocus\\Background image.jpg").getImage();
 
             @Override
             protected void paintComponent(Graphics g) {

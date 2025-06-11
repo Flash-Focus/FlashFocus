@@ -12,7 +12,6 @@ public class QuizMode extends JFrame {
     private JButton bottomRight;
     private JButton backBtn;
     private JButton nextBtn;
-    private JButton correctAnswerButton;
     
 
     private JPanel topBarPanel;
@@ -26,6 +25,7 @@ public class QuizMode extends JFrame {
     private int correctIndex = 0;
 
     private int totalCards;
+    private int correct;
     private int currentCard;
     
     private JLabel progressLabel;
@@ -45,7 +45,7 @@ public class QuizMode extends JFrame {
         // Background panel with image
         JPanel backgroundPanel = new JPanel() {
             Image bg = new ImageIcon(
-                    "C:\\Users\\aryan\\OneDrive\\Documents\\FlashFocus\\FlashFocus\\Background quiz image.jpg")
+                    "FlashFocus\\Background quiz image.jpg")
                     .getImage();
 
             @Override
@@ -133,6 +133,7 @@ public class QuizMode extends JFrame {
                 } else if (e.getSource() == topLeft && !attempt) {
                     if (topLeft.getText() == correctAnswer){
                         topLeft.setBackground(new Color(50, 205, 50));
+                        correct++;
                         attempt = true;
                         nextBtn.setVisible(true);
                     } else {
@@ -145,8 +146,7 @@ public class QuizMode extends JFrame {
                 } else if (e.getSource() == topRight && !attempt){
                     if(topRight.getText() == correctAnswer){
                         topRight.setBackground(new Color(50, 205, 50));
-                        attempt = true;
-                        nextBtn.setVisible(true);
+                        correct++;
                         attempt = true;
                         nextBtn.setVisible(true);
                     } else {
@@ -154,14 +154,12 @@ public class QuizMode extends JFrame {
                         correctAnswerButtonGreen(correctIndex);
                         attempt = true;
                         nextBtn.setVisible(true);
-                        attempt = true;
-                        nextBtn.setVisible(true);
                     }
                     
                 } else if (e.getSource() == bottomLeft && !attempt){
                     if (bottomLeft.getText() == correctAnswer) {
                         bottomLeft.setBackground(new Color(50, 205, 50));
-
+                        correct++;
                         attempt = true;
                         nextBtn.setVisible(true);
                     } else {
@@ -173,10 +171,11 @@ public class QuizMode extends JFrame {
                 } else if (e.getSource() == bottomRight && !attempt){
                     if (bottomRight.getText() == correctAnswer) {
                         bottomRight.setBackground(new Color(50, 205, 50));
+                        correct++;
                         attempt = true;
                         nextBtn.setVisible(true);
                     } else {
-                        bottomLeft.setBackground(new Color(255, 69, 58));
+                        bottomRight.setBackground(new Color(255, 69, 58));
                         correctAnswerButtonGreen(correctIndex);
                         attempt = true;
                         nextBtn.setVisible(true);
@@ -190,7 +189,11 @@ public class QuizMode extends JFrame {
                         bottomLeft.setBackground(new Color(255, 188, 110));
                         bottomRight.setBackground(new Color(255, 188, 110));
                         correctIndex = 0;
+                        nextBtn.setVisible(false);
                         showQuestionAndOptions(questions.get(cardIndex));
+                    } else if (cardIndex == totalCards - 1) {
+                        QuizMode.this.setVisible(false);
+                        new QuizModeEnd(correct, totalCards);
                     }
                 }
             }

@@ -247,7 +247,6 @@ public class HomeScreen extends JFrame {
                     background.add(loadDeck);
                     if (flashCardDeck == null) {
                         loadDeck.setText("Deck not been found, Please enter a valid saved flashcard deck");
-                        System.out.println(flashCardDeck);
                     } else {
                         quiz.setVisible(true);
                         study.setVisible(true);
