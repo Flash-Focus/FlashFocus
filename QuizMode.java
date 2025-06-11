@@ -11,6 +11,9 @@ public class QuizMode extends JFrame {
     private JButton bottomLeft;
     private JButton bottomRight;
     private JButton backBtn;
+    private JButton nextBtn;
+    private JButton correctAnswerButton;
+    
 
     private JPanel topBarPanel;
 
@@ -18,29 +21,32 @@ public class QuizMode extends JFrame {
     private HashMap<String, AnswerList<String>> deck;
     private ArrayList<String> questions;
     private int cardIndex = 0;
-    private boolean answersShown;
+    private boolean attempt;
     private String correctAnswer;
+    private int correctIndex = 0;
+
+    private int totalCards;
+    private int currentCard;
     
+    private JLabel progressLabel;
     public QuizMode(HashMap<String, AnswerList<String>> flashCardDeck) {
-        deck = flashCardDeck;
-        cardContent = new JLabel();
-        topLeft = new JButton();
-        topRight = new JButton();
-        bottomLeft = new JButton();
-        bottomRight = new JButton(); 
-            
+        
+
         setTitle("FlashFocus");
         setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
+        deck = flashCardDeck;
         // Quiz Mode
 
         // Background
         // Background panel with image
         JPanel backgroundPanel = new JPanel() {
-            Image bg = new ImageIcon("C:\\Users\\sarim\\OneDrive\\Desktop\\Projects\\FlashFocus\\FlashFocus\\Background quiz image.jpg").getImage();
+            Image bg = new ImageIcon(
+                    "C:\\Users\\aryan\\OneDrive\\Documents\\FlashFocus\\FlashFocus\\Background quiz image.jpg")
+                    .getImage();
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -48,34 +54,72 @@ public class QuizMode extends JFrame {
                 g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.setLayout(null);
         setContentPane(backgroundPanel);
+
+        // Title
+        cardContent = new JLabel("", SwingConstants.CENTER);
+        cardContent.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        cardContent.setForeground(Color.WHITE);
+        cardContent.setBounds(200, 100, 500, 40);
+        backgroundPanel.add(cardContent);
+
+        // current card and total cards
+        progressLabel = new JLabel("", SwingConstants.CENTER);
+        progressLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        progressLabel.setForeground(Color.WHITE);
+        progressLabel.setBounds(325, 420, 200, 30); 
+        backgroundPanel.add(progressLabel);
+
+
+        // Top Left Button
+        topLeft = createStyledButton("");
+        topLeft.setBounds(170, 250, 200, 50);
+        backgroundPanel.add(topLeft);
         
+        // Top right button
+        topRight = createStyledButton("");
+        topRight.setBounds(455, 250, 200, 50);
+        backgroundPanel.add(topRight);
+
+        // Bottom left button
+        bottomLeft = createStyledButton("");
+        bottomLeft.setBounds(170, 350, 200, 50);
+        backgroundPanel.add(bottomLeft);
+
+        // Bottom right button
+        bottomRight = createStyledButton("");
+        bottomRight.setBounds(455, 350, 200, 50);
+        backgroundPanel.add(bottomRight);
+
+        // Next Button
+        nextBtn = createStyledButton("Next");
+        nextBtn.setBounds(700,25,100,40);
+        nextBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        nextBtn.setBackground(new Color(0, 191, 255)); // Purple
+        nextBtn.setVisible(false);
+        backgroundPanel.add(nextBtn);
+
+    
         // Title (centered)
         JLabel title = new JLabel("Quiz Mode", SwingConstants.CENTER);
         title.setFont(new Font("Poppins", Font.BOLD, 36));
         title.setForeground(Color.WHITE);
-        title.setBounds(300,300,300,30);
+        title.setBounds(300, 300, 300, 30);
 
         // Top bar panel with title and back button
         JPanel topBarPanel = new JPanel(new BorderLayout());
         topBarPanel.setOpaque(false);
         topBarPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20));
-        
+
         // Back button (top-right)
         backBtn = createStyledButton("Back");
-        backBtn.setPreferredSize(new Dimension(100, 40));
+        backBtn.setBounds(25,25,100,40);
         backBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
         backBtn.setBackground(new Color(204, 51, 51)); // red for visibility
-
-        topBarPanel.add(title);
-        topBarPanel.add(backBtn, BorderLayout.EAST);
-
-        backgroundPanel.add(topBarPanel, BorderLayout.NORTH);
+        backgroundPanel.add(backBtn);
 
         // Questions and answers
-
-        //HashMap<String, AnswerList<String>> flashCards = deck;
 
         QuizMode.this.setVisible(true);
 
@@ -83,53 +127,141 @@ public class QuizMode extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == backBtn){
+                if (e.getSource() == backBtn) {
                     new HomeScreen();
                     QuizMode.this.setVisible(false);
+                } else if (e.getSource() == topLeft && !attempt) {
+                    if (topLeft.getText() == correctAnswer){
+                        topLeft.setBackground(new Color(50, 205, 50));
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                    } else {
+                        topLeft.setBackground(new Color(255, 69, 58));
+                        correctAnswerButtonGreen(correctIndex);
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                    }
+                    
+                } else if (e.getSource() == topRight && !attempt){
+                    if(topRight.getText() == correctAnswer){
+                        topRight.setBackground(new Color(50, 205, 50));
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                    } else {
+                        topRight.setBackground(new Color(255, 69, 58));
+                        correctAnswerButtonGreen(correctIndex);
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                    }
+                    
+                } else if (e.getSource() == bottomLeft && !attempt){
+                    if (bottomLeft.getText() == correctAnswer) {
+                        bottomLeft.setBackground(new Color(50, 205, 50));
+
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                    } else {
+                        bottomLeft.setBackground(new Color(255, 69, 58));
+                        correctAnswerButtonGreen(correctIndex);
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                    }
+                } else if (e.getSource() == bottomRight && !attempt){
+                    if (bottomRight.getText() == correctAnswer) {
+                        bottomRight.setBackground(new Color(50, 205, 50));
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                    } else {
+                        bottomLeft.setBackground(new Color(255, 69, 58));
+                        correctAnswerButtonGreen(correctIndex);
+                        attempt = true;
+                        nextBtn.setVisible(true);
+                    }
+                } else if (e.getSource() == nextBtn && attempt){
+                    if (cardIndex < questions.size() - 1) {
+                        cardIndex++;
+                        attempt = false;
+                        topLeft.setBackground(new Color(255, 188, 110));
+                        topRight.setBackground(new Color(255, 188, 110));
+                        bottomLeft.setBackground(new Color(255, 188, 110));
+                        bottomRight.setBackground(new Color(255, 188, 110));
+                        correctIndex = 0;
+                        showQuestionAndOptions(questions.get(cardIndex));
+                    }
                 }
             }
 
         };
         backBtn.addActionListener(listener);
+        topLeft.addActionListener(listener);
+        topRight.addActionListener(listener);
+        bottomLeft.addActionListener(listener);
+        bottomRight.addActionListener(listener);
+        nextBtn.addActionListener(listener);
+
+        initializeDeck();
+
     }
     
+    // Called only once
     public void initializeDeck() {
         questions = new ArrayList<>(deck.keySet());
+        totalCards = questions.size();
         if (!questions.isEmpty()) {
             cardIndex = 0;
-            showQuestion(questions.get(cardIndex));
+            attempt = false;
+            showQuestionAndOptions(questions.get(cardIndex));
         }
     }
 
-    public void showQuestion(String s) {
+    public void showQuestionAndOptions(String s) {
         cardContent.setText(s);
-        answersShown = false;
-        
-    }
-
-    public void showAnswers(String s) {
         AnswerList<String> list = deck.get(s);
         topLeft.setText(list.get(0));
         topRight.setText(list.get(1));
         bottomLeft.setText(list.get(2));
         bottomRight.setText(list.get(3));
-        if (list.getCorrectAnswerIndex() == 0) {
+        correctIndex = list.getCorrectAnswerIndex();
+        if (correctIndex == 0) {
             correctAnswer = topLeft.getText();
-        } else if (list.getCorrectAnswerIndex() == 1) {
+        } else if (correctIndex == 1) {
             correctAnswer = topRight.getText();
-        } else if (list.getCorrectAnswerIndex() == 2){
+        } else if (correctIndex == 2) {
             correctAnswer = bottomLeft.getText();
-        } else if (list.getCorrectAnswerIndex() == 3) {
+        } else if (correctIndex == 3) {
             correctAnswer = bottomRight.getText();
         }
-        answersShown = true;
+        updateProgressLabel();
+
     }
+
+    private void updateProgressLabel(){
+        currentCard = cardIndex + 1;
+        progressLabel.setText("Card " + currentCard + " of " + totalCards);
+    }
+
+    public void correctAnswerButtonGreen(int correctIndex) {
+        if (correctIndex == 0) {
+            topLeft.setBackground(new Color(50, 205, 50));
+        } else if (correctIndex == 1) {
+            topRight.setBackground(new Color(50, 205, 50));
+        } else if (correctIndex == 2) {
+            bottomLeft.setBackground(new Color(50, 205, 50));
+        } else if (correctIndex == 3) {
+            bottomRight.setBackground(new Color(50, 205, 50));
+        }
+    }
+               
 
     private JButton createStyledButton(String text) {
         JButton btn = new JButton(text);
         btn.setFont(new Font("Segoe UI", Font.BOLD, 16));
         btn.setForeground(Color.WHITE);
-        btn.setBackground(new Color(0, 102, 204));
+        btn.setBackground(new Color(255,188,110));
         btn.setFocusPainted(false);
         btn.setPreferredSize(new Dimension(120, 45));
         btn.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));

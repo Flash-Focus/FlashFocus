@@ -29,7 +29,7 @@ public class StudyMode extends JFrame {
 
         // Background panel with image
         JPanel backgroundPanel = new JPanel() {
-            Image bg = new ImageIcon("C:\\Users\\sarim\\OneDrive\\Desktop\\Projects\\FlashFocus\\FlashFocus\\Background image.jpg").getImage();
+            Image bg = new ImageIcon("C:\\Users\\aryan\\OneDrive\\Documents\\FlashFocus\\FlashFocus\\Background image.jpg").getImage();
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -143,6 +143,8 @@ public class StudyMode extends JFrame {
             showQuestion(questions.get(cardIndex));
         }
     }
+
+    
 
     public void showQuestion(String s) {
         cardContent.setText("<html><div style='text-align: center;'>" + s + "</div></html>");
