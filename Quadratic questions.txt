@@ -1,0 +1,150 @@
+Solve: x² - 9 = 0
+A) x = 3
+B) x = -3
+C) x = 3 and x = -3
+D) x = 9
+2
+If a < 0 in y = ax² + bx + c, the parabola opens:
+A) Upward
+B) Downward
+C) Horizontally
+D) Linearly
+1
+How do you find the vertex of y = ax² + bx + c?
+A) (-b/2a, f(-b/2a))
+B) (b/2a, f(b/2a))
+C) (0, c)
+D) (c, -b/2a)
+0
+If the discriminant is zero, how many real roots are there?
+A) 0
+B) 1
+C) 2
+D) Infinite
+1
+What is the vertex form of a quadratic equation?
+A) y = a(x - h)² + k
+B) y = mx + b
+C) y = a(x + h)(x + k)
+D) y = ax² + bx
+0
+What is the solution to (x + 4)(x - 2) = 0?
+A) x = 4
+B) x = -4 and x = 2
+C) x = -2 and x = 4
+D) x = 0
+1
+What is the factored form of x² - 16?
+A) (x + 4)(x - 4)
+B) (x + 8)(x - 8)
+C) (x - 4)²
+D) (x + 16)(x - 1)
+0
+If a quadratic equation has no real roots, the discriminant is:
+A) Positive
+B) Zero
+C) Negative
+D) Undefined
+2
+What completes the square for x² + 6x?
+A) 3
+B) 6
+C) 9
+D) 12
+2
+The minimum/maximum value of a quadratic is at:
+A) The y-intercept
+B) The vertex
+C) The roots
+D) The midpoint of roots
+1
+What is the sum of the roots of ax² + bx + c = 0?
+A) -b/a
+B) b/a
+C) c/a
+D) -c/a
+0
+What is the quadratic formula?
+A) x = (-b ± sqrt(b² - 4ac)) / 2a
+B) x = b ± sqrt(b² - 4ac)
+C) x = (-b² ± sqrt(4ac)) / 2a
+D) x = (b + sqrt(b² - 4ac)) / 2
+0
+If a quadratic has two distinct real roots, the discriminant is:
+A) Zero
+B) Positive
+C) Negative
+D) Undefined
+1
+What is the y-intercept of y = 2x² - 8x + 6?
+A) (0, 6)
+B) (0, -8)
+C) (0, 2)
+D) (6, 0)
+0
+What is the discriminant of the quadratic equation ax² + bx + c = 0?
+A) b² - 4ac
+B) b² + 4ac
+C) sqrt(b² - 4ac)
+D) -b / 2a
+0
+What shape is the graph of a quadratic equation?
+A) Straight line
+B) Circle
+C) Parabola
+D) Hyperbola
+2
+What are the roots of x² - 5x + 6 = 0?
+A) 1 and 6
+B) 2 and 3
+C) -2 and -3
+D) 0 and 5
+1
+What is the axis of symmetry of y = ax² + bx + c?
+A) x = -b / (2a)
+B) x = b / (2a)
+C) y = -b² / (4a)
+D) y = c / a
+0
+Which equation represents a quadratic function?
+A) y = 3x + 2
+B) y = 5x² - x + 1
+C) y = 2^x
+D) y = 1/x
+1
+How many roots does a quadratic equation have?
+A) 0, 1, or 2
+B) Exactly 2
+C) Exactly 1
+D) Infinite
+0
+What is the vertex of y = x² - 6x + 5?
+A) (3, -4)
+B) (-3, 4)
+C) (6, 5)
+D) (0, 5)
+0
+What is the product of the roots of ax² + bx + c = 0?
+A) b/a
+B) -b/a
+C) c/a
+D) -c/a
+2
+The quadratic equation x² - 4x + 5 = 0 has:
+A) Two real roots
+B) One real root
+C) No real roots
+D) Infinite roots
+2
+What is the solution to x² + 4x + 4 = 0?
+A) x = 2
+B) x = -2
+C) x = 4
+D) x = -4
+1
+What is the general form of a quadratic equation?
+A) ax + b = 0
+B) ax² + bx + c = 0
+C) a^x + b^x + c = 0
+D) ax³ + bx² + c = 0
+1

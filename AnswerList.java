@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class AnswerList<E> extends ArrayList<E> {
+public class AnswerList<E> {
     private List<String> answers;
     private int correctAnswerIndex;
 
@@ -23,6 +23,14 @@ public class AnswerList<E> extends ArrayList<E> {
         } else {
             return false;
         }
+    }
+
+     public String get(int index) {
+        return answers.get(index);
+    }
+
+    public int getSize() {
+        return answers.size();
     }
 
     public String toString() {
