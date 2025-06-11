@@ -40,7 +40,7 @@ public class QuizMode extends JFrame {
         // Background
         // Background panel with image
         JPanel backgroundPanel = new JPanel() {
-            Image bg = new ImageIcon("Background quiz image.jpg").getImage();
+            Image bg = new ImageIcon("C:\\Users\\sarim\\OneDrive\\Desktop\\Projects\\FlashFocus\\FlashFocus\\Background quiz image.jpg").getImage();
 
             @Override
             protected void paintComponent(Graphics g) {

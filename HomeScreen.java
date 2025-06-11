@@ -240,16 +240,20 @@ public class HomeScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String topic = searchField.getText();
-                if (topic != "" && topic != "Enter a specific topic to study, or a saved topic deck") {
-                    HashMap<String, AnswerList<String>> flashCardDeck = ChatbotFlashcardGenerator.loadDeck(topic);
+                if (!topic.equals("") && !topic.equals( "Enter a specific topic to study, or a saved topic deck")) {
+                    flashCardDeck = ChatbotFlashcardGenerator.loadDeck(topic);
                     JLabel loadDeck = new JLabel();
                     loadDeck.setBounds(65, 450, 200, 30);
                     background.add(loadDeck);
                     if (flashCardDeck == null) {
                         loadDeck.setText("Deck not been found, Please enter a valid saved flashcard deck");
+                        System.out.println(flashCardDeck);
                     } else {
                         quiz.setVisible(true);
                         study.setVisible(true);
+
+                        quiz.addMouseListener(m1);
+                        study.addMouseListener(m1);
                     }
                     
                 }
@@ -279,20 +283,16 @@ public class HomeScreen extends JFrame {
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-        }
+        public void mousePressed(MouseEvent e) {}
 
         @Override
-        public void mouseReleased(MouseEvent e) {
-        }
+        public void mouseReleased(MouseEvent e) {}
 
         @Override
-        public void mouseEntered(MouseEvent e) {
-        }
+        public void mouseEntered(MouseEvent e) {}
 
         @Override
-        public void mouseExited(MouseEvent e) {
-        }
+        public void mouseExited(MouseEvent e) {}
         
     }
 
