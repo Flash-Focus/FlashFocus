@@ -40,6 +40,10 @@ public class StudyMode extends JFrame {
         backgroundPanel.setLayout(new BorderLayout());
         setContentPane(backgroundPanel);
 
+        Image icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        setIconImage(icon);
+
+
         // Top bar panel with title and back button
         JPanel topBarPanel = new JPanel(new BorderLayout());
         topBarPanel.setOpaque(false);

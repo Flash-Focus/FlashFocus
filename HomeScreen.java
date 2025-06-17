@@ -24,6 +24,9 @@ public class HomeScreen extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
+        Image icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        setIconImage(icon);
+
         GradientBackgroundPanel background = new GradientBackgroundPanel();
         background.setLayout(null);
         setContentPane(background);

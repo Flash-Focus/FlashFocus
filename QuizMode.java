@@ -57,6 +57,10 @@ public class QuizMode extends JFrame {
         backgroundPanel.setLayout(null);
         setContentPane(backgroundPanel);
 
+        Image icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        setIconImage(icon);
+
+
         // Title
         cardContent = new JLabel("", SwingConstants.CENTER);
         cardContent.setFont(new Font("Segoe UI", Font.BOLD, 20));
@@ -193,7 +197,7 @@ public class QuizMode extends JFrame {
                         showQuestionAndOptions(questions.get(cardIndex));
                     } else if (cardIndex == totalCards - 1) {
                         QuizMode.this.setVisible(false);
-                        new QuizModeEnd(correct, totalCards);
+                        new QuizModeEnd(correct, totalCards, deck);
                     }
                 }
             }
