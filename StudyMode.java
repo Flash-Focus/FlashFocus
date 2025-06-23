@@ -14,12 +14,15 @@ public class StudyMode extends JFrame {
     private JButton backBtn;
 
     private int cardIndex = 0;
+    private int cardNumber = 1;
+    private int totalCards;
     private HashMap<String, AnswerList<String>> deck;
     private ArrayList<String> questions;
     private boolean isFlipped;
 
     public StudyMode(HashMap<String, AnswerList<String>> deck) {
         this.deck = deck;
+        totalCards = deck.size();
 
         setTitle("FlashFocus - Study Mode");
         setSize(900, 600);
@@ -62,6 +65,7 @@ public class StudyMode extends JFrame {
 
         topBarPanel.add(title, BorderLayout.CENTER);
         topBarPanel.add(backBtn, BorderLayout.EAST);
+        topBarPanel.add(Box.createHorizontalStrut(100), BorderLayout.WEST);
 
         backgroundPanel.add(topBarPanel, BorderLayout.NORTH);
 
@@ -96,7 +100,7 @@ public class StudyMode extends JFrame {
 
         bottomPanel.add(buttonPanel, BorderLayout.CENTER);
 
-        progressLabel = new JLabel("", SwingConstants.CENTER);
+        progressLabel = new JLabel("Card " + (cardNumber) + " of " + totalCards, SwingConstants.CENTER);
         progressLabel.setFont(new Font("SansSerif", Font.ITALIC, 16));
         progressLabel.setForeground(Color.WHITE);
         bottomPanel.add(progressLabel, BorderLayout.SOUTH);
@@ -114,14 +118,20 @@ public class StudyMode extends JFrame {
                         showQuestion(questions.get(cardIndex));
                     }
                 } else if (e.getSource() == nextBtn) {
-                    if (cardIndex < questions.size() - 1) {
+                    if (cardIndex < questions.size()-1) {
                         cardIndex++;
+                        cardNumber = cardIndex + 1;
+                        progressLabel.setText("Card " + cardNumber + " of " + totalCards);
                         showQuestion(questions.get(cardIndex));
+                        
                     }
                 } else if (e.getSource() == prevBtn) {
-                    if (cardIndex > 0) {
+                    if (cardIndex >= 1) {
                         cardIndex--;
+                        cardNumber = cardIndex + 1;
+                        progressLabel.setText("Card " + cardNumber + " of " + totalCards);
                         showQuestion(questions.get(cardIndex));
+                        
                     }
                 }
                 else if (e.getSource() == backBtn){

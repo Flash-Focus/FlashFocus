@@ -16,7 +16,6 @@ public class HomeScreen extends JFrame {
     private JButton study;
     HashMap<String, AnswerList<String>> flashCardDeck;
 
-    private mouseListener m1;
     public HomeScreen() {
         setTitle("FlashFocus");
         setSize(1024, 600);
@@ -30,9 +29,6 @@ public class HomeScreen extends JFrame {
         GradientBackgroundPanel background = new GradientBackgroundPanel();
         background.setLayout(null);
         setContentPane(background);
-
-        // Instantiating mouseListener
-        m1 = new mouseListener();
 
         // Title
         JLabel title = new JLabel("FlashFocus", SwingConstants.CENTER);
@@ -106,6 +102,8 @@ public class HomeScreen extends JFrame {
         infoTitle.setForeground(new Color(40, 40, 40));
         infoPanel.add(infoTitle);
 
+        
+
         String[] features = {
             "Generate flashcards from any topic",
             "Study or quiz yourself at your own pace",
@@ -165,35 +163,6 @@ public class HomeScreen extends JFrame {
         generatingDeck.setFont(new Font("SansSerif", Font.BOLD, 16));
         generatingDeck.setVisible(false);
         background.add(generatingDeck);
-
-        // Study Button (Styled)
-        study = new JButton("STUDY");
-        study.setBounds(175, 425, 100, 80);
-        study.setFont(new Font("SansSerif", Font.BOLD, 20));
-        study.setBackground(new Color(75,154,255)); 
-        study.setForeground(Color.WHITE);
-        study.setFocusPainted(false);
-        study.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 180), 2)); // Strong red border
-        study.setOpaque(true);
-        study.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        study.setVisible(false);
-        background.add(study);
-
-
-
-        // Quiz Button
-        quiz = new JButton("QUIZ");
-        quiz.setBounds(300, 425, 100, 80);
-        quiz.setFont(new Font("SansSerif", Font.BOLD, 20));
-        quiz.setBackground(new Color(214,100,96)); 
-        quiz.setForeground(Color.WHITE);
-        quiz.setFocusPainted(false);
-        quiz.setBorder(BorderFactory.createLineBorder(new Color(180,0,0), 2)); // Strong red border
-        quiz.setOpaque(true);
-        quiz.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        quiz.setVisible(false);
-        background.add(quiz);
-        
         
         // DO NOT REMOVE THIS
         apiKey = "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";
@@ -205,33 +174,31 @@ public class HomeScreen extends JFrame {
 
         generateBtn.addActionListener(new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            String topic = searchField.getText().trim();
-            if (!topic.equals("") && !topic.equals("Enter a topic...")) {
-                generatingDeck.setVisible(true);
+            public void actionPerformed(ActionEvent e) {
+                String topic = searchField.getText().trim();
+                if (!topic.equals("") && !topic.equals("Enter a topic...")) {
+                    generatingDeck.setVisible(true);
 
-                // Use a short delay to allow UI to repaint before the heavy task
-                new Timer(10, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        ((Timer) evt.getSource()).stop(); // stop the timer after it fires
+                    // Use a short delay to allow UI to repaint before the heavy task
+                    new Timer(10, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent evt) {
+                            ((Timer) evt.getSource()).stop(); // stop the timer after it fires
 
-                        // Generate the flashcard deck
-                        flashCardDeck = ChatbotFlashcardGenerator.flashCardDeck(topic, apiKey);
-                        generatingDeck.setVisible(false);
-                        quiz.setVisible(true);
-                        study.setVisible(true);
-                        
-                        // Option of clicking study mode or quiz mode
-                         quiz.addMouseListener(m1);
-                         study.addMouseListener(m1);
+                            // Generate the flashcard deck
 
-                        // Optionally close the home screen
-                        // HomeScreen.this.dispose();
-                    }
-                }).start();
+                            flashCardDeck = ChatbotFlashcardGenerator.flashCardDeck(topic, apiKey);
+                            if (flashCardDeck == null) {
+                                generatingDeck.setText("Unexpected Error in generating deck. Please try again");
+                            }
+                            generatingDeck.setVisible(false);
+                            new ChooseYourMode(flashCardDeck);
+                            HomeScreen.this.dispose();
+                        }
+                    }).start();
+                }
+                
             }
-        }
     });
 
         JButton loadBtn = createButton("LOAD EXISTING DECK", new Color(220, 220, 220), new Color(80, 80, 80));
@@ -250,12 +217,10 @@ public class HomeScreen extends JFrame {
                     background.add(loadDeck);
                     if (flashCardDeck == null) {
                         loadDeck.setText("Deck not been found, Please enter a valid saved flashcard deck");
-                    } else {
-                        quiz.setVisible(true);
-                        study.setVisible(true);
-
-                        quiz.addMouseListener(m1);
-                        study.addMouseListener(m1);
+                    }
+                    else{
+                        new ChooseYourMode(flashCardDeck);
+                        HomeScreen.this.dispose();
                     }
                     
                 }
@@ -264,38 +229,6 @@ public class HomeScreen extends JFrame {
         });
 
         setVisible(true);
-    }
-
-    // A class for the quiz button and study mode button
-    class mouseListener implements MouseListener{
-
-        public mouseListener() {
-            
-        }
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getSource() == quiz){
-                new QuizMode(flashCardDeck);
-                HomeScreen.this.setVisible(false);
-            }
-            else if (e.getSource() == study){
-                new StudyMode(flashCardDeck);
-                HomeScreen.this.setVisible(false);
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {}
-
-        @Override
-        public void mouseReleased(MouseEvent e) {}
-
-        @Override
-        public void mouseEntered(MouseEvent e) {}
-
-        @Override
-        public void mouseExited(MouseEvent e) {}
-        
     }
 
     private JButton createButton(String text, Color bg, Color fg) {
@@ -313,6 +246,7 @@ public class HomeScreen extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 button.setBackground(bg.darker());
             }
+
             public void mouseExited(MouseEvent e) {
                 button.setBackground(bg);
             }
