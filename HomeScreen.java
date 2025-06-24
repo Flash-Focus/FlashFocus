@@ -7,14 +7,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 
 public class HomeScreen extends JFrame {
-    String apiKey;
-    private JButton quiz;
-    private JButton study;
-    HashMap<String, AnswerList<String>> flashCardDeck;
+    private String apiKey;
+
+    private Image icon;
+
+    private JLabel title;
+    private JLabel subtitle;
+    private JPanel searchPanel;
+    private JLabel searchIcon;
+    private JTextField searchField;
+    private JPanel infoPanel;
+    private JLabel infoTitle;
+    private JLabel emoji;
+    private JLabel text;
+    private JPanel previewPanel;
+    private JLabel previewLabel;
+    private JLabel previewTitle;
+    private JLabel previewContent;
+    private JLabel footer;
+    private JLabel generatingDeck;
+    private JButton generateBtn;
+    private JButton loadBtn;
+
+    private HashMap<String, AnswerList<String>> flashCardDeck;
 
     public HomeScreen() {
         setTitle("FlashFocus");
@@ -23,7 +41,7 @@ public class HomeScreen extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        Image icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
         setIconImage(icon);
 
         GradientBackgroundPanel background = new GradientBackgroundPanel();
@@ -31,41 +49,43 @@ public class HomeScreen extends JFrame {
         setContentPane(background);
 
         // Title
-        JLabel title = new JLabel("FlashFocus", SwingConstants.CENTER);
-        title.setFont(new Font("Segoe UI", Font.BOLD, 50));  // Modern and bold
-        title.setForeground(new Color(30, 30, 30));  // Dark charcoal
-        title.setBounds(0, 0, getWidth(), 80);  // Full width, height adjusted
+        title = new JLabel("FlashFocus", SwingConstants.CENTER);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 50)); // Modern and bold
+        title.setForeground(new Color(30, 30, 30)); // Dark charcoal
+        title.setBounds(0, 0, getWidth(), 80); // Full width, height adjusted
         background.add(title);
 
         // Subtitle
-        JLabel subtitle = new JLabel("<html><div style='text-align:center;'>AI-Powered flashcards.<br>Smarter studying starts here.</div></html>", SwingConstants.CENTER);
+        subtitle = new JLabel(
+                "<html><div style='text-align:center;'>AI-Powered flashcards.<br>Smarter studying starts here.</div></html>",
+                SwingConstants.CENTER);
         subtitle.setFont(new Font("Poppins", Font.PLAIN, 26));
         subtitle.setForeground(new Color(70, 70, 70)); // medium dark gray
         subtitle.setBounds(50, 120, 520, 100); // reduced width a bit
         background.add(subtitle);
 
-       // Search panel
-        JPanel searchPanel = new JPanel(null);
+        // Search panel
+        searchPanel = new JPanel(null);
         searchPanel.setBounds(65, 250, 470, 60);
         searchPanel.setBackground(new Color(255, 255, 255, 220));
-        searchPanel.setOpaque(false); 
+        searchPanel.setOpaque(false);
         searchPanel.setBorder(new RoundedBorder(new Color(180, 180, 180), 25));
         addShadow(searchPanel);
         background.add(searchPanel);
 
         // Search icon
-        JLabel searchIcon = new JLabel("🔍");
+        searchIcon = new JLabel("🔍");
         searchIcon.setFont(new Font("SansSerif", Font.PLAIN, 20));
         searchIcon.setBounds(15, 15, 30, 30);
         searchPanel.add(searchIcon);
 
         // Beautiful Search Field
-        JTextField searchField = new JTextField("Enter a topic...");
+        searchField = new JTextField("Enter a topic...");
         searchField.setBounds(50, 15, 390, 30); // Slightly smaller to avoid overflowing
         searchField.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         searchField.setForeground(new Color(130, 130, 130));
         searchField.setBackground(new Color(255, 255, 255, 180)); // Soft white
-        searchField.setOpaque(false); 
+        searchField.setOpaque(false);
         searchField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Padding
 
         // Placeholder behavior
@@ -77,6 +97,7 @@ public class HomeScreen extends JFrame {
                 }
             }
 
+            // Searchbar text effect
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (searchField.getText().trim().isEmpty()) {
                     searchField.setText("Enter a topic...");
@@ -87,39 +108,37 @@ public class HomeScreen extends JFrame {
 
         searchPanel.add(searchField);
 
-
         // Info Panel smaller and moved
-        JPanel infoPanel = new JPanel(null);
+        infoPanel = new JPanel(null);
         infoPanel.setBounds(600, 100, 350, 450); // smaller size and moved left
         infoPanel.setBackground(new Color(255, 255, 255, 230));
         infoPanel.setBorder(new RoundedBorder(new Color(200, 200, 200), 25));
         addShadow(infoPanel);
         background.add(infoPanel);
 
-        JLabel infoTitle = new JLabel("What you can do:");
+        infoTitle = new JLabel("What you can do:");
         infoTitle.setFont(new Font("Poppins", Font.BOLD, 22));
         infoTitle.setBounds(20, 20, 300, 30);
         infoTitle.setForeground(new Color(40, 40, 40));
         infoPanel.add(infoTitle);
 
-        
-
+        // Guide/Instructions
         String[] features = {
-            "Generate flashcards from any topic",
-            "Study or quiz yourself at your own pace",
-            "Automatically saves decks for review",
-            "Track your progress easily",
-            "Supports multiple subjects"
+                "Generate flashcards from any topic",
+                "Study or quiz yourself at your own pace",
+                "Automatically saves decks for review",
+                "Track your progress easily",
+                "Supports multiple subjects"
         };
-        String[] emojis = {"💡", "📝", "🗂️", "📈", "📚"};
+        String[] emojis = { "💡", "📝", "🗂️", "📈", "📚" };
 
         for (int i = 0; i < features.length; i++) {
-            JLabel emoji = new JLabel(emojis[i]);
+            emoji = new JLabel(emojis[i]);
             emoji.setFont(new Font("Poppins", Font.PLAIN, 18)); // slightly smaller font
             emoji.setBounds(25, 65 + i * 40, 30, 30);
             infoPanel.add(emoji);
 
-            JLabel text = new JLabel(features[i]);
+            text = new JLabel(features[i]);
             text.setFont(new Font("Poppins", Font.PLAIN, 14)); // smaller font
             text.setBounds(60, 65 + i * 40, 270, 30); // narrower width
             text.setForeground(new Color(90, 90, 90));
@@ -127,53 +146,53 @@ public class HomeScreen extends JFrame {
         }
 
         // Preview Panel inside Info Panel - smaller
-        JPanel previewPanel = new JPanel(null);
+        previewPanel = new JPanel(null);
         previewPanel.setBounds(20, 280, 310, 150); // smaller and fits
         previewPanel.setBackground(Color.WHITE);
         previewPanel.setBorder(new RoundedBorder(new Color(200, 200, 200), 20));
         addShadow(previewPanel);
         infoPanel.add(previewPanel);
 
-        JLabel previewLabel = new JLabel("Preview");
+        previewLabel = new JLabel("Preview");
         previewLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         previewLabel.setForeground(new Color(41, 128, 185));
         previewLabel.setBounds(20, 10, 200, 20);
         previewPanel.add(previewLabel);
 
-        JLabel previewTitle = new JLabel("What is Calculus?");
+        previewTitle = new JLabel("What is Calculus?");
         previewTitle.setFont(new Font("SansSerif", Font.BOLD, 16));
         previewTitle.setBounds(20, 40, 280, 25);
         previewPanel.add(previewTitle);
 
-        JLabel previewContent = new JLabel("The study of continuous change.");
+        previewContent = new JLabel("The study of continuous change.");
         previewContent.setFont(new Font("SansSerif", Font.PLAIN, 14));
         previewContent.setBounds(20, 70, 280, 20);
         previewPanel.add(previewContent);
 
         // Footer 
-        JLabel footer = new JLabel("deepseek", SwingConstants.CENTER);
+        footer = new JLabel("deepseek", SwingConstants.CENTER);
         footer.setFont(new Font("SansSerif", Font.BOLD, 30));
         footer.setForeground(new Color(102, 51, 153));
         footer.setBounds(150, 520, 200, 30);
         background.add(footer);
 
         // Generating label
-        JLabel generatingDeck = new JLabel("Flashcard Deck is generating, Please wait patiently");
+        generatingDeck = new JLabel("Flashcard Deck is generating, Please wait patiently");
         generatingDeck.setBounds(65, 420, 500, 30);
         generatingDeck.setFont(new Font("SansSerif", Font.BOLD, 16));
         generatingDeck.setVisible(false);
         background.add(generatingDeck);
-        
-        // DO NOT REMOVE THIS
+
+        // API key for chatbot
         apiKey = "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";
-        
+
         // Buttons
-        JButton generateBtn = createButton("GENERATE FLASHCARDS", new Color(41, 128, 185), Color.WHITE);
+        generateBtn = createButton("GENERATE FLASHCARDS", new Color(41, 128, 185), Color.WHITE);
         generateBtn.setBounds(65, 330, 225, 70); // smaller width
         background.add(generateBtn);
 
         generateBtn.addActionListener(new ActionListener() {
-        @Override
+            @Override
             public void actionPerformed(ActionEvent e) {
                 String topic = searchField.getText().trim();
                 if (!topic.equals("") && !topic.equals("Enter a topic...")) {
@@ -197,40 +216,41 @@ public class HomeScreen extends JFrame {
                         }
                     }).start();
                 }
-                
-            }
-    });
 
-        JButton loadBtn = createButton("LOAD EXISTING DECK", new Color(220, 220, 220), new Color(80, 80, 80));
+            }
+        });
+
+        loadBtn = createButton("LOAD EXISTING DECK", new Color(220, 220, 220), new Color(80, 80, 80));
         loadBtn.setBounds(310, 330, 225, 70); // moved closer to generateBtn
         background.add(loadBtn);
-        
+
         loadBtn.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 String topic = searchField.getText();
-                if (!topic.equals("") && !topic.equals( "Enter a specific topic to study, or a saved topic deck")) {
+                if (!topic.equals("") && !topic.equals("Enter a specific topic to study, or a saved topic deck")) {
                     flashCardDeck = ChatbotFlashcardGenerator.loadDeck(topic);
                     JLabel loadDeck = new JLabel();
-                    loadDeck.setBounds(65, 450, 200, 30);
+                    loadDeck.setBounds(65, 425, 550, 30);
                     background.add(loadDeck);
                     if (flashCardDeck == null) {
                         loadDeck.setText("Deck not been found, Please enter a valid saved flashcard deck");
-                    }
-                    else{
+                        loadDeck.setFont(new Font("Segoe UI", Font.BOLD, 16));
+                    } else {
                         new ChooseYourMode(flashCardDeck);
                         HomeScreen.this.dispose();
                     }
-                    
+
                 }
             }
-            
+
         });
 
         setVisible(true);
     }
 
+    // Button designs
     private JButton createButton(String text, Color bg, Color fg) {
         JButton button = new JButton(text);
         button.setBackground(bg);
@@ -300,9 +320,5 @@ public class HomeScreen extends JFrame {
                 component.getBorder(),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(HomeScreen::new);
     }
 }

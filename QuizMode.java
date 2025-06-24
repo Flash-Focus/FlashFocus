@@ -6,16 +6,19 @@ import java.awt.event.ActionListener;
 
 public class QuizMode extends JFrame {
     private JLabel cardContent;
+    private JLabel title;
+
     private JButton topLeft;
     private JButton topRight;
     private JButton bottomLeft;
     private JButton bottomRight;
     private JButton backBtn;
     private JButton nextBtn;
-    
-
+       
     private JPanel topBarPanel;
+    private JPanel backgroundPanel;
 
+    private Image icon;
 
     private HashMap<String, AnswerList<String>> deck;
     private ArrayList<String> questions;
@@ -29,21 +32,18 @@ public class QuizMode extends JFrame {
     private int currentCard;
     
     private JLabel progressLabel;
-    public QuizMode(HashMap<String, AnswerList<String>> flashCardDeck) {
-        
 
-        setTitle("FlashFocus");
+    public QuizMode(HashMap<String, AnswerList<String>> flashCardDeck) {
+        setTitle("FlashFocus - Quiz Mode");
         setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
         deck = flashCardDeck;
-        // Quiz Mode
 
-        // Background
         // Background panel with image
-        JPanel backgroundPanel = new JPanel() {
+        backgroundPanel = new JPanel() {
             Image bg = new ImageIcon(
                     "FlashFocus\\Background quiz image.jpg")
                     .getImage();
@@ -57,7 +57,7 @@ public class QuizMode extends JFrame {
         backgroundPanel.setLayout(null);
         setContentPane(backgroundPanel);
 
-        Image icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
         setIconImage(icon);
 
 
@@ -65,7 +65,7 @@ public class QuizMode extends JFrame {
         cardContent = new JLabel("", SwingConstants.CENTER);
         cardContent.setFont(new Font("Segoe UI", Font.BOLD, 20));
         cardContent.setForeground(Color.WHITE);
-        cardContent.setBounds(200, 100, 500, 40);
+        cardContent.setBounds(200, 100, 500, 60);
         backgroundPanel.add(cardContent);
 
         // current card and total cards
@@ -78,22 +78,22 @@ public class QuizMode extends JFrame {
 
         // Top Left Button
         topLeft = createStyledButton("");
-        topLeft.setBounds(170, 250, 200, 50);
+        topLeft.setBounds(185, 235, 200, 65);
         backgroundPanel.add(topLeft);
         
         // Top right button
         topRight = createStyledButton("");
-        topRight.setBounds(455, 250, 200, 50);
+        topRight.setBounds(470, 235, 200, 65);
         backgroundPanel.add(topRight);
 
         // Bottom left button
         bottomLeft = createStyledButton("");
-        bottomLeft.setBounds(170, 350, 200, 50);
+        bottomLeft.setBounds(185, 335, 200, 65);
         backgroundPanel.add(bottomLeft);
 
         // Bottom right button
         bottomRight = createStyledButton("");
-        bottomRight.setBounds(455, 350, 200, 50);
+        bottomRight.setBounds(470, 335, 200, 65);
         backgroundPanel.add(bottomRight);
 
         // Next Button
@@ -106,13 +106,13 @@ public class QuizMode extends JFrame {
 
     
         // Title (centered)
-        JLabel title = new JLabel("Quiz Mode", SwingConstants.CENTER);
+        title = new JLabel("Quiz Mode", SwingConstants.CENTER);
         title.setFont(new Font("Poppins", Font.BOLD, 36));
         title.setForeground(Color.WHITE);
         title.setBounds(300, 300, 300, 30);
 
         // Top bar panel with title and back button
-        JPanel topBarPanel = new JPanel(new BorderLayout());
+        topBarPanel = new JPanel(new BorderLayout());
         topBarPanel.setOpaque(false);
         topBarPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20));
 
@@ -203,6 +203,7 @@ public class QuizMode extends JFrame {
             }
 
         };
+
         backBtn.addActionListener(listener);
         topLeft.addActionListener(listener);
         topRight.addActionListener(listener);
@@ -211,10 +212,10 @@ public class QuizMode extends JFrame {
         nextBtn.addActionListener(listener);
 
         initializeDeck();
-
     }
     
     // Called only once
+    // Stores questions into an ArrayList
     public void initializeDeck() {
         questions = new ArrayList<>(deck.keySet());
         totalCards = questions.size();
@@ -225,13 +226,18 @@ public class QuizMode extends JFrame {
         }
     }
 
+    // Displays the 4 possible question options
     public void showQuestionAndOptions(String s) {
-        cardContent.setText(s);
+        cardContent.setText("<html><div style='text-align: center;'>" + s + "</div></html>");
         AnswerList<String> list = deck.get(s);
-        topLeft.setText(list.get(0));
-        topRight.setText(list.get(1));
-        bottomLeft.setText(list.get(2));
-        bottomRight.setText(list.get(3));
+        topLeft.setText("<html><div style='text-align: center;'>" + list.get(0) + "</div></html>");
+        topRight.setText("<html><div style='text-align: center;'>" + list.get(1) + "</div></html>");
+        bottomLeft.setText("<html><div style='text-align: center;'>" + list.get(2) + "</div></html>");
+        bottomRight.setText("<html><div style='text-align: center;'>" + list.get(3) + "</div></html>");
+        topLeft.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        topRight.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        bottomLeft.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        bottomRight.setFont(new Font("Segoe UI", Font.BOLD, 15));
         correctIndex = list.getCorrectAnswerIndex();
         if (correctIndex == 0) {
             correctAnswer = topLeft.getText();
@@ -246,11 +252,13 @@ public class QuizMode extends JFrame {
 
     }
 
-    private void updateProgressLabel(){
+    // Displays which card the user is on
+    private void updateProgressLabel() {
         currentCard = cardIndex + 1;
         progressLabel.setText("Card " + currentCard + " of " + totalCards);
     }
 
+    // Highlighting the button with the correct answer
     public void correctAnswerButtonGreen(int correctIndex) {
         if (correctIndex == 0) {
             topLeft.setBackground(new Color(50, 205, 50));
@@ -263,7 +271,7 @@ public class QuizMode extends JFrame {
         }
     }
                
-
+    // Button designs
     private JButton createStyledButton(String text) {
         JButton btn = new JButton(text);
         btn.setFont(new Font("Segoe UI", Font.BOLD, 16));

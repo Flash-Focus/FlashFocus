@@ -4,18 +4,22 @@ import java.awt.event.*;
 import java.util.*;
 
 public class ChooseYourMode extends JFrame {
-    JLabel title;
-    JLabel subtitle;
-    JButton studyBtn;
-    JButton quizBtn;
-    HashMap<String, AnswerList<String>> deck;
+    private JLabel title;
+    private JLabel subtitle;
+    private JButton studyBtn;
+    private JButton quizBtn;
+    private HashMap<String, AnswerList<String>> deck;
+
+    private Image icon;
     
     public ChooseYourMode(HashMap<String, AnswerList<String>> deck) {
-        setTitle("Choose Your Mode");
+        setTitle("FlashFocus");
         setSize(920, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        setIconImage(icon);
 
         DarkBackgroundPanel background = new DarkBackgroundPanel();
         background.setLayout(null);
@@ -26,7 +30,7 @@ public class ChooseYourMode extends JFrame {
         buttonlistener b1 = new buttonlistener();
 
         // Title
-        title = new JLabel("🧭 Choose Your Mode", SwingConstants.CENTER);
+        title = new JLabel("⏰ Choose Your Mode", SwingConstants.CENTER);
         title.setFont(new Font("Poppins", Font.BOLD, 42));
         title.setForeground(Color.WHITE);
         title.setBounds(0, 80, getWidth(), 50);
@@ -50,13 +54,13 @@ public class ChooseYourMode extends JFrame {
         background.add(quizBtn);
 
         // Button functionality
-
         studyBtn.addMouseListener(b1);
         quizBtn.addMouseListener(b1);
 
         setVisible(true);
     }
 
+    // Shade hover effect on buttons
     private JButton createDarkButton(String title, String subtitle, Color bgColor) {
         JButton button = new JButton("<html><div style='text-align:center;'><b>" + title + "</b><br><span style='font-size:10px;'>" + subtitle + "</span></div></html>");
         button.setFont(new Font("Poppins", Font.PLAIN, 16));
@@ -111,6 +115,7 @@ public class ChooseYourMode extends JFrame {
     }
 
     
+    // Button listener when a button is clicked
     public class buttonlistener implements MouseListener {
         public buttonlistener(){}
 

@@ -5,13 +5,19 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 public class StudyMode extends JFrame {
-
     private JLabel cardContent;
     private JLabel progressLabel;
     private JButton prevBtn;
     private JButton flipBtn;
     private JButton nextBtn;
     private JButton backBtn;
+    private JLabel title;
+    private JPanel topBarPanel;
+    private JPanel cardPanel;
+    private JPanel bottomPanel;
+    private JPanel buttonPanel;
+
+    private Image icon;
 
     private int cardIndex = 0;
     private int cardNumber = 1;
@@ -43,12 +49,11 @@ public class StudyMode extends JFrame {
         backgroundPanel.setLayout(new BorderLayout());
         setContentPane(backgroundPanel);
 
-        Image icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
         setIconImage(icon);
 
-
         // Top bar panel with title and back button
-        JPanel topBarPanel = new JPanel(new BorderLayout());
+        topBarPanel = new JPanel(new BorderLayout());
         topBarPanel.setOpaque(false);
         topBarPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 10, 20));
 
@@ -59,7 +64,7 @@ public class StudyMode extends JFrame {
         backBtn.setBackground(new Color(204, 51, 51)); // red for visibility
 
         // Title (centered)
-        JLabel title = new JLabel("Study Mode", SwingConstants.CENTER);
+        title = new JLabel("Study Mode", SwingConstants.CENTER);
         title.setFont(new Font("Poppins", Font.BOLD, 36));
         title.setForeground(Color.WHITE);
 
@@ -70,7 +75,7 @@ public class StudyMode extends JFrame {
         backgroundPanel.add(topBarPanel, BorderLayout.NORTH);
 
         // Flashcard Panel (semi-transparent)
-        JPanel cardPanel = new RoundedPanel();
+        cardPanel = new RoundedPanel();
         cardPanel.setPreferredSize(new Dimension(600, 300));
         cardPanel.setBackground(new Color(255, 255, 255, 180)); // semi-transparent white
         cardPanel.setLayout(new GridBagLayout());
@@ -88,11 +93,11 @@ public class StudyMode extends JFrame {
         flipBtn = createStyledButton("Flip");
         nextBtn = createStyledButton("Next ⟶");
 
-        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setOpaque(false);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 20, 30));
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         buttonPanel.setOpaque(false);
         buttonPanel.add(prevBtn);
         buttonPanel.add(flipBtn);
@@ -118,12 +123,12 @@ public class StudyMode extends JFrame {
                         showQuestion(questions.get(cardIndex));
                     }
                 } else if (e.getSource() == nextBtn) {
-                    if (cardIndex < questions.size()-1) {
+                    if (cardIndex < questions.size() - 1) {
                         cardIndex++;
                         cardNumber = cardIndex + 1;
                         progressLabel.setText("Card " + cardNumber + " of " + totalCards);
                         showQuestion(questions.get(cardIndex));
-                        
+
                     }
                 } else if (e.getSource() == prevBtn) {
                     if (cardIndex >= 1) {
@@ -131,10 +136,9 @@ public class StudyMode extends JFrame {
                         cardNumber = cardIndex + 1;
                         progressLabel.setText("Card " + cardNumber + " of " + totalCards);
                         showQuestion(questions.get(cardIndex));
-                        
+
                     }
-                }
-                else if (e.getSource() == backBtn){
+                } else if (e.getSource() == backBtn) {
                     new HomeScreen();
                     StudyMode.this.dispose();
                 }
@@ -150,6 +154,7 @@ public class StudyMode extends JFrame {
         setVisible(true);
     }
 
+    // Storing questions into a seperate arraylist
     public void initializeDeck() {
         questions = new ArrayList<>(deck.keySet());
         if (!questions.isEmpty()) {
@@ -158,13 +163,13 @@ public class StudyMode extends JFrame {
         }
     }
 
-    
-
+    // Displays question with new line formatting
     public void showQuestion(String s) {
         cardContent.setText("<html><div style='text-align: center;'>" + s + "</div></html>");
         isFlipped = false;
     }
 
+    // Displays answer of the question
     public void showAnswer(String s) {
         AnswerList<String> list = deck.get(s);
 
@@ -185,6 +190,7 @@ public class StudyMode extends JFrame {
         isFlipped = true;
     }
 
+    // Button designs
     private JButton createStyledButton(String text) {
         JButton btn = new JButton(text);
         btn.setFont(new Font("Segoe UI", Font.BOLD, 16));

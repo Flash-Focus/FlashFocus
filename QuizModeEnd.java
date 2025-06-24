@@ -1,30 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class QuizModeEnd extends JFrame {
 
+    private JPanel glowingPanel;
     private JLabel titleLabel;
     private JLabel scoreLabel;
     private JLabel subTextLabel;
     private JButton tryAgainButton;
     private JButton homeButton;
 
-    private HashMap<String, AnswerList<String>> deck;
+    private Font titleFont;
+    private Font scoreFont;
+    private Font subFont;
+    private Font buttonFont;
+
+    private Image icon;
 
     public QuizModeEnd(int correct, int totalCards, HashMap<String, AnswerList<String>> deck) {
-        this.deck = deck;
-
         setTitle("FlashFocus - Quiz Complete");
         setSize(900, 600);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // === NEON PANEL BACKGROUND ===
-        JPanel glowingPanel = new JPanel(null) {
+        // Neon panel background
+        glowingPanel = new JPanel(null) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -46,13 +48,13 @@ public class QuizModeEnd extends JFrame {
         glowingPanel.setBackground(Color.BLACK);
         setContentPane(glowingPanel);
 
-        // === FONTS ===
-        Font titleFont = new Font("SansSerif", Font.BOLD, 36);
-        Font scoreFont = new Font("SansSerif", Font.BOLD, 30);
-        Font subFont = new Font("SansSerif", Font.PLAIN, 22);
-        Font buttonFont = new Font("SansSerif", Font.BOLD, 18);
+        // Fonts
+        titleFont = new Font("SansSerif", Font.BOLD, 36);
+        scoreFont = new Font("SansSerif", Font.BOLD, 30);
+        subFont = new Font("SansSerif", Font.PLAIN, 22);
+        buttonFont = new Font("SansSerif", Font.BOLD, 18);
 
-        // === TITLE LABEL ===
+        // Title label
         titleLabel = new JLabel("QUIZ COMPLETE!");
         titleLabel.setBounds(0, 125, 900, 40);
         titleLabel.setFont(titleFont);
@@ -60,7 +62,7 @@ public class QuizModeEnd extends JFrame {
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         glowingPanel.add(titleLabel);
 
-        // === SCORE LABEL ===
+        // Score label
         scoreLabel = new JLabel("Your Score: " + correct + "/" + totalCards);
         scoreLabel.setBounds(0, 200, 900, 40);
         scoreLabel.setFont(scoreFont);
@@ -68,7 +70,7 @@ public class QuizModeEnd extends JFrame {
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
         glowingPanel.add(scoreLabel);
 
-        // === SUBTEXT LABEL ===
+        // Subtext label
         subTextLabel = new JLabel("You answered " + correct + " out of " + totalCards + " flashcards correctly.");
         subTextLabel.setBounds(0, 275, 900, 30);
         subTextLabel.setFont(subFont);
@@ -76,7 +78,7 @@ public class QuizModeEnd extends JFrame {
         subTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
         glowingPanel.add(subTextLabel);
 
-        // === BUTTONS ===
+        // Buttons
         tryAgainButton = createNeonButton("Try Again", buttonFont);
         tryAgainButton.setBounds(490, 400, 160, 50);
         glowingPanel.add(tryAgainButton);
@@ -85,7 +87,7 @@ public class QuizModeEnd extends JFrame {
         homeButton.setBounds(250, 400, 160, 50);
         glowingPanel.add(homeButton);
 
-        // === BUTTON LISTENERS ===
+        // Button listeners
         tryAgainButton.addActionListener(e -> {
             dispose();
             new QuizMode(deck);
@@ -97,7 +99,7 @@ public class QuizModeEnd extends JFrame {
         });
 
         // Icon (Optional)
-        Image icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
         setIconImage(icon);
 
         setVisible(true);
