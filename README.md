@@ -1,18 +1,29 @@
-## Getting Started
+# FlashFocus
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+FlashFocus is a Java desktop application designed to help users study efficiently using flashcards and quizzes. Built with Java Swing, it features interactive screens, custom icons, and external API integration to generate flashcards automatically.
 
-## Folder Structure
+## ✨ Features
 
-The workspace contains two folders by default, where:
+- 🧠 Flashcard Study Mode  
+- ❓ Quiz Mode with results tracking  
+- 🤖 Flashcard generation via DeepSeek V3 API  
+- 🎨 Custom icons for a friendly UI  
+- ⌚ Study and quiz yourself at your own pace
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## 🛠 Requirements
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- Java JDK 17 or later
+- VS Code (recommended)
+- json-20230227.jar (included in `lib/`)
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## 🚀 How to Run
 
-## Dependency Management
+### ✅ Option 1 (Easiest Way): Double-Click the JAR
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+If you have Java installed, just double-click `FlashFocus.jar` to launch the app.
+
+### 💻 Option 2: From VS Code
+
+1. Open the main `FlashFocus` folder in VS Code
+2. Make sure your launch configuration is set (or click the green ▶️ on `Run.java`)
+3. Enjoy!
