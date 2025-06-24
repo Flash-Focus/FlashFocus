@@ -25,5 +25,5 @@ If you have Java installed, just double-click `FlashFocus.jar` to launch the app
 ### 💻 Option 2: From VS Code
 
 1. Open the main `FlashFocus` folder in VS Code
-2. Make sure your launch configuration is set (or click the green ▶️ on `Run.java`)
+2. Make sure your launch configuration is set (or click the ▶️ at the top right on `Run.java`)
 3. Enjoy!
