@@ -31,6 +31,7 @@ public class HomeScreen extends JFrame {
     private JLabel generatingDeck;
     private JButton generateBtn;
     private JButton loadBtn;
+    private JLabel loadDeck;
 
     private HashMap<String, AnswerList<String>> flashCardDeck;
 
@@ -41,7 +42,7 @@ public class HomeScreen extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        icon = new ImageIcon(getClass().getResource("/resources/Image Icon.png")).getImage();
         setIconImage(icon);
 
         GradientBackgroundPanel background = new GradientBackgroundPanel();
@@ -186,6 +187,8 @@ public class HomeScreen extends JFrame {
         // API key for chatbot
         apiKey = "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";
 
+        loadDeck = new JLabel();
+        
         // Buttons
         generateBtn = createButton("GENERATE FLASHCARDS", new Color(41, 128, 185), Color.WHITE);
         generateBtn.setBounds(65, 330, 225, 70); // smaller width
@@ -196,6 +199,7 @@ public class HomeScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String topic = searchField.getText().trim();
                 if (!topic.equals("") && !topic.equals("Enter a topic...")) {
+                    loadDeck.setText("");
                     generatingDeck.setVisible(true);
 
                     // Use a short delay to allow UI to repaint before the heavy task
@@ -231,7 +235,6 @@ public class HomeScreen extends JFrame {
                 String topic = searchField.getText();
                 if (!topic.equals("") && !topic.equals("Enter a specific topic to study, or a saved topic deck")) {
                     flashCardDeck = ChatbotFlashcardGenerator.loadDeck(topic);
-                    JLabel loadDeck = new JLabel();
                     loadDeck.setBounds(65, 425, 550, 30);
                     background.add(loadDeck);
                     if (flashCardDeck == null) {

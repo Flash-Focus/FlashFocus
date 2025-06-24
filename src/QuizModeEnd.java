@@ -99,7 +99,7 @@ public class QuizModeEnd extends JFrame {
         });
 
         // Icon (Optional)
-        icon = new ImageIcon("FlashFocus\\Image Icon.png").getImage();
+        icon = new ImageIcon(getClass().getResource("/resources/Image Icon.png")).getImage();
         setIconImage(icon);
 
         setVisible(true);
