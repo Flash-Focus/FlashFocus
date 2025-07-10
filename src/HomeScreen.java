@@ -42,7 +42,7 @@ public class HomeScreen extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        icon = new ImageIcon(getClass().getResource("/resources/Image Icon.png")).getImage();
+        icon = new ImageIcon("/resources/Image Icon.png").getImage();
         setIconImage(icon);
 
         GradientBackgroundPanel background = new GradientBackgroundPanel();
@@ -185,7 +185,7 @@ public class HomeScreen extends JFrame {
         background.add(generatingDeck);
 
         // API key for chatbot
-        apiKey = "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";
+        apiKey = "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";
 
         loadDeck = new JLabel();
         

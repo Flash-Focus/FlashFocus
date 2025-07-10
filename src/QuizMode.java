@@ -44,8 +44,8 @@ public class QuizMode extends JFrame {
 
         // Background panel with image
         backgroundPanel = new JPanel() {
-            Image bg = new ImageIcon(getClass().getResource(
-                    "/resources/Background quiz image.jpg"))
+            Image bg = new ImageIcon(
+                    "/resources/Background quiz image.jpg")
                     .getImage();
 
             @Override
@@ -57,7 +57,7 @@ public class QuizMode extends JFrame {
         backgroundPanel.setLayout(null);
         setContentPane(backgroundPanel);
 
-        icon = new ImageIcon(getClass().getResource("/resources/Image Icon.png")).getImage();
+        icon = new ImageIcon("/resources/Image Icon.png").getImage();
         setIconImage(icon);
 
 
