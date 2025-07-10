@@ -18,7 +18,7 @@ public class ChooseYourMode extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        icon = new ImageIcon("/resources/Image Icon.png").getImage();
+        icon = new ImageIcon(getClass().getResource("/resources/Image Icon.png")).getImage();
         setIconImage(icon);
 
         DarkBackgroundPanel background = new DarkBackgroundPanel();

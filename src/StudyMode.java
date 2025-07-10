@@ -38,7 +38,7 @@ public class StudyMode extends JFrame {
 
         // Background panel with image
         JPanel backgroundPanel = new JPanel() {
-            Image bg = new ImageIcon("/resources/Background image.jpg").getImage();
+            Image bg = new ImageIcon(getClass().getResource("/resources/Background image.jpg")).getImage();
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -49,7 +49,7 @@ public class StudyMode extends JFrame {
         backgroundPanel.setLayout(new BorderLayout());
         setContentPane(backgroundPanel);
 
-        icon = new ImageIcon("/resources/Image Icon.png").getImage();
+        icon = new ImageIcon(getClass().getResource("/resources/Image Icon.png")).getImage();
         setIconImage(icon);
 
         // Top bar panel with title and back button

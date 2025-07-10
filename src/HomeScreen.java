@@ -42,7 +42,7 @@ public class HomeScreen extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        icon = new ImageIcon("/resources/Image Icon.png").getImage();
+        icon = new ImageIcon(getClass().getResource("/resources/Image Icon.png")).getImage();
         setIconImage(icon);
 
         GradientBackgroundPanel background = new GradientBackgroundPanel();
