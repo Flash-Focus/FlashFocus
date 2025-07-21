@@ -185,7 +185,8 @@ public class HomeScreen extends JFrame {
         background.add(generatingDeck);
 
         // API key for chatbot
-        apiKey = "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";
+        apiKey = System.getenv("API_KEY");
+        System.out.println(apiKey);
 
         loadDeck = new JLabel();
         
