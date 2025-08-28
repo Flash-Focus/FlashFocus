@@ -25,7 +25,7 @@ FlashFocus requires an API key from OpenRouter to generate flashcards.
 3. Open `HomeScreen.java` (the file containing `apiKey`)  
 4. Replace the placeholder string with your API key:
 ```java
-String apiKey = "<YOUR_API_KEY_HERE>";
+apiKey = "your_api_key_here";
 ```
 5. Save the file
 
