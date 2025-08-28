@@ -42,6 +42,9 @@ public class HomeScreen extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
+        // API key for chatbot
+        apiKey = "your_api_key_here"; // Replace with your actual API key
+
         icon = new ImageIcon(getClass().getResource("/resources/Image Icon.png")).getImage();
         setIconImage(icon);
 
@@ -184,10 +187,6 @@ public class HomeScreen extends JFrame {
         generatingDeck.setVisible(false);
         background.add(generatingDeck);
 
-        // API key for chatbot
-        apiKey = System.getenv("API_KEY");
-        System.out.println(apiKey);
-
         loadDeck = new JLabel();
         
         // Buttons
@@ -201,6 +200,11 @@ public class HomeScreen extends JFrame {
                 String topic = searchField.getText().trim();
                 if (!topic.equals("") && !topic.equals("Enter a topic...")) {
                     loadDeck.setText("");
+                    if (apiKey == "your_api_key_here" || apiKey.trim().isEmpty()) {
+                                generatingDeck.setText("Please set your API key in the code to generate flashcards.");
+                        generatingDeck.setVisible(true);
+                        return;
+                            }
                     generatingDeck.setVisible(true);
 
                     // Use a short delay to allow UI to repaint before the heavy task

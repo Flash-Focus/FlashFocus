@@ -19,7 +19,7 @@ public class ChatbotFlashcardGenerator {
              JSONObject systemMessage = new JSONObject();
              systemMessage.put("role", "system");
              systemMessage.put("content",
-                     "You are a helpful study assistant. Reply in clear, plain language. Im going to be asking you to make flashcards, questions and answers like a multiple choice with 4 possible answer, and I want you to keep it a simple format as possible for me to easily read it in my system. Please have **Question**, then a seperate line stating the question, and **Answer**, then a new line which has the answers, and also identifiy which is is **Correct Answer** for me. Have **Correct Answer** on a new line, and keep the correct answers seperate please, not together with the rest, and make any math related questions/answers using plain text math instead of LaTeX, for symbols that are hard to render, just use words instead of that symbol such as infinity and arrows, please make 25 (Twenty-Five) EXACT flashcards.");
+                     "You are a helpful study assistant. Reply in clear, plain language. Im going to be asking you to make flashcards, questions and answers like a multiple choice with 4 possible answer, and I want you to keep it a simple format as possible for me to easily read it in my system. Please have **Question**, then a seperate line stating the question, and **Answer**, then a new line which has the answers, and also identifiy which is is **Correct Answer** for me. Have **Correct Answer** on a new line, and keep the correct answers seperate please, not together with the rest, and make any math related questions/answers using plain text math instead of LaTeX, for symbols that are hard to render, just use words instead of that symbol such as infinity and arrows, please make 25 (Twenty-Five) EXACT flashcards Please don't add any extra text saying that your done making it and stuff.");
              messagesArray.put(systemMessage);
 
              // User message
@@ -30,7 +30,7 @@ public class ChatbotFlashcardGenerator {
 
              // Request body
              JSONObject requestBody = new JSONObject();
-             requestBody.put("model", "deepseek/deepseek-chat-v3-0324:free");
+             requestBody.put("model", "tngtech/deepseek-r1t2-chimera:free");
              requestBody.put("messages", messagesArray);
 
              // Open connection
@@ -78,7 +78,8 @@ public class ChatbotFlashcardGenerator {
                      .getJSONObject("message")
                      .getString("content");
 
-             // System.out.println("\nBot: " + reply);
+            
+             // System.out.println("\nBot: " + reply); // Comment this out later
 
              boolean isQuestion = false;
              boolean isAnswer = false;
